@@ -14,6 +14,6 @@ void setup(){
 }
 void draw(){
   background(255);
-  p.show();
-  m.show(); 
+  p.update();
+  m.update(); 
 }

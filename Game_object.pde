@@ -12,4 +12,11 @@ class gameObject{
   public void show(){
     image(sprite,x,y,w,h);
   }
+  public void move(){
+    
+  }
+  public void update(){
+    this.show();
+    this.move();
+  }
 }
