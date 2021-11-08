@@ -1,33 +1,48 @@
 
 class Player extends gameObject{
-  
+  Timer t;
   public Player(){
-    super(imagemap.get("playership"),400,400,70,70);
-    
+    super(imagemap.get("playerShip"),400,400,70,70);
+    t = new Timer(1000);
   }  
   public void move(){
-    if(keyCode == 38){
+    if(up == true){
       y = y - 5;
     }
-    else if(keyCode == 40){
+    else if(down == true){
       y = y + 5;
     }
-    else if(keyCode == 37){
+    else if(left == true){
       x = x - 5;
     }
-    else if(keyCode == 39){
+    else if(right == true){
       x = x + 5;
     }
+  }
+  public void shoot(){
+    
+    if(space == true && t.checkTime() == true ){
+      new Missiles(x,y);    
+    }
+  }
+   public void update(){
+    this.show();
+    this.move();
+    this.shoot();
   }
 }
 class Missiles extends gameObject{
   
-  public Missiles(){
-    super( imagemap.get("missile"),400,300,20,80);
+  public Missiles(float x,float y){
+    super( imagemap.get("missileimage"),x,y,20,80);
     
   } 
   public void move(){
      y = y - 7;
+  }
+  public void update(){
+    this.show();
+    this.move();
   }
 }
 //1)write a move function for GameObject, missle, and player
