@@ -1,21 +1,20 @@
-class Timer{
+class Timer {
   int timeStamp = 0;
   int currentTime = 0;
   int timeInterval;
-  public Timer(int ti){
+  public Timer(int ti) {
     timeInterval = ti;
   }
-  public boolean checkTime(){
+  public boolean checkTime() {
     currentTime = millis();
-    if(timeStamp+timeInterval < currentTime){
+    if (timeStamp+timeInterval < currentTime) {
       timeStamp= currentTime;
       return(true);
-    }
-    else{
+    } else {
       return(false);
     }
   }
-  public void setInterval(int i){
+  public void setInterval(int i) {
     timeInterval = i;
   }
 }

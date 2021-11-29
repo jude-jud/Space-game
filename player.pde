@@ -1,48 +1,72 @@
 
-class Player extends gameObject{
+class Player extends gameObject {
   Timer t;
-  public Player(){
-    super(imagemap.get("playerShip"),400,400,70,70);
-    t = new Timer(1000);
+  int h; 
+  public Player() {
+    super(imagemap.get("playerShip"), 400, 400, 70, 70);
+    t = new Timer(500);
+    tag = "player";
+    h = 5;
   }  
-  public void move(){
-    if(up == true){
+  public void move() {
+    if (up == true) {
       y = y - 5;
-    }
-    else if(down == true){
+    } else if (down == true) {
       y = y + 5;
-    }
-    else if(left == true){
+    } else if (left == true) {
       x = x - 5;
-    }
-    else if(right == true){
+    } else if (right == true) {
       x = x + 5;
     }
   }
-  public void shoot(){
-    
-    if(space == true && t.checkTime() == true ){
-      new Missiles(x,y);    
+  public void shoot() {
+
+    if (space == true && t.checkTime() == true ) {
+      new Missiles(x, y);
     }
   }
-   public void update(){
+  public void checkCollision(){
+    for(int a = 0;a < allobjects.size();a++){
+      if(allobjects.get(a).tag == "enemy" && distance(this,allobjects.get(a))){
+        allobjects.get(a).alive = false;
+
+        h = h - 1;
+      }
+      if(h <= 0){
+        alive = false;
+        gameover = true;
+        //noLoop();
+      }
+    }
+  }
+  public void update() {
     this.show();
+    this.checkCollision();
     this.move();
     this.shoot();
   }
 }
-class Missiles extends gameObject{
-  
-  public Missiles(float x,float y){
-    super( imagemap.get("missileimage"),x,y,20,80);
-    
+class Missiles extends gameObject {
+
+  public Missiles(float x, float y) {
+    super( imagemap.get("missileimage"), x, y, 20, 80);
   } 
-  public void move(){
-     y = y - 7;
+  public void move() {
+    y = y - 7;
   }
-  public void update(){
+  public void checkCollision(){
+    for(int a = 0;a < allobjects.size();a++){
+      if(allobjects.get(a).tag == "enemy" && distance(this,allobjects.get(a))){
+        allobjects.get(a).alive = false;
+
+        alive = false;
+      }
+    }
+  }
+  public void update() {
     this.show();
     this.move();
+    this.checkCollision();
   }
 }
 //1)write a move function for GameObject, missle, and player
